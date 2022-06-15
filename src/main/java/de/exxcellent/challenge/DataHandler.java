@@ -7,13 +7,19 @@ public class DataHandler {
     private int MAX_Temp_Index = 1;
     private int MIN_Temp_Index = 2;
     private List<String[]> data;
+    private String[] headers;
 
     public DataHandler(List<String[]> data) {
+        this.headers = data.get(0);
+        data.remove(0);
         this.data = data;
     }
 
     public DataHandler(String filename) {
-        this.data = CsvReader.readCsvFileToListStringArrays(filename);
+        var data = CsvReader.readCsvFileToListStringArrays(filename);
+        this.headers = data.get(0);
+        data.remove(0);
+        this.data = data;
     }
 
     public String getSmallestSpread() {
