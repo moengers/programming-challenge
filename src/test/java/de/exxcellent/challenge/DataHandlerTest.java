@@ -12,14 +12,14 @@ import java.util.List;
 class DataHandlerTest {
 
     @Test
-    void dataHandlerLoadFile_SholdNotThrow_CreateNotEmptyDataHandler() {
+    void dataHandler_loadFile_SholdNotThrow_CreateNotEmptyDataHandler() {
         var dataHandler = new DataHandler("src/main/resources/de/exxcellent/challenge/weather.csv");
 
         assertTrue(dataHandler != null);
     }
 
     @Test
-    void dataHandlerLoadFile_SholdThrow() {
+    void dataHandler_loadFile_SholdThrow() {
         Exception exception = assertThrows(NullPointerException.class, () -> {
             var dataHandler = new DataHandler("not/a/real/path");
         });
@@ -60,5 +60,12 @@ class DataHandlerTest {
         var day = dataHandler.getSmallestSpread();
 
         assertEquals(2, day);
+    }
+
+    @Test
+    void dataHandler_getSmallestSpread_ByFileWether() {
+        var dataHandler = new DataHandler("src/main/resources/de/exxcellent/challenge/weather.csv");
+        var day = dataHandler.getSmallestSpread();
+        assertEquals(14, day);
     }
 }
