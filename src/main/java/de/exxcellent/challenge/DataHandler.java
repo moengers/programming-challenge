@@ -1,5 +1,6 @@
 package de.exxcellent.challenge;
 
+import java.io.FileNotFoundException;
 import java.util.Arrays;
 import java.util.List;
 
@@ -13,8 +14,10 @@ public class DataHandler {
         this.data = data;
     }
 
-    public DataHandler(String filename) {
+    public DataHandler(String filename) throws Exception {
         var data = CsvReader.readCsvFileToListStringArrays(filename);
+        if (data == null)
+            throw new FileNotFoundException("CsvReader.readCsvFileToListStringArrays: data is empty");
         this.headers = data.get(0);
         data.remove(0);
         this.data = data;

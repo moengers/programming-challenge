@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,18 +14,24 @@ class DataHandlerTest {
 
     @Test
     void dataHandler_loadFile_SholdNotThrow_CreateNotEmptyDataHandler() {
-        var dataHandler = new DataHandler("src/main/resources/de/exxcellent/challenge/weather.csv");
 
-        assertTrue(dataHandler != null);
+        try {
+            var dataHandler = new DataHandler("src/main/resources/de/exxcellent/challenge/weather.csv");
+            assertTrue(dataHandler != null);
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
     }
 
     @Test
     void dataHandler_loadFile_SholdThrow() {
-        Exception exception = assertThrows(NullPointerException.class, () -> {
+        Exception exception = assertThrows(FileNotFoundException.class, () -> {
             var dataHandler = new DataHandler("not/a/real/path");
         });
 
-        String expectedMessage = "\"stringList\" is null";
+        String expectedMessage = "data is empty";
         String actualMessage = exception.getMessage();
 
         assertTrue(actualMessage.contains(expectedMessage));
@@ -68,15 +75,23 @@ class DataHandlerTest {
 
     @Test
     void dataHandler_getSmallestSpread_ByFileWether() {
-        var dataHandler = new DataHandler("src/main/resources/de/exxcellent/challenge/weather.csv");
-        var day = dataHandler.getSmallestSpread("Day", "MxT", "MnT");
-        assertEquals("14", day);
+        try {
+            var dataHandler = new DataHandler("src/main/resources/de/exxcellent/challenge/weather.csv");
+            var day = dataHandler.getSmallestSpread("Day", "MxT", "MnT");
+            assertEquals("14", day);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Test
     void dataHandler_getSmallestSpread_ByFootball() {
-        var dataHandler = new DataHandler("src/main/resources/de/exxcellent/challenge/football.csv");
-        var team = dataHandler.getSmallestSpread("Team", "Goals", "Goals Allowed");
-        assertEquals("Aston_Villa", team);
+        try {
+            var dataHandler = new DataHandler("src/main/resources/de/exxcellent/challenge/football.csv");
+            var team = dataHandler.getSmallestSpread("Team", "Goals", "Goals Allowed");
+            assertEquals("Aston_Villa", team);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
