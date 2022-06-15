@@ -32,7 +32,7 @@ public class DataHandler {
         for (String[] day : this.data) {
             var delta = Float.parseFloat(day[firstValueColumn]) - Float.parseFloat(day[secValueColumn]);
             delta = Math.abs(delta);
-            System.out.println(day[indexColumn] + " " + delta);
+            // System.out.println(day[indexColumn] + " " + delta);
             if (delta < smallestSpread) {
                 indexSmallestSpread = day[indexColumn];
                 smallestSpread = delta;
