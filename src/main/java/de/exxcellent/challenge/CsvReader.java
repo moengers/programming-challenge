@@ -17,7 +17,7 @@ public class CsvReader {
      */
     static List<String[]> readCsvFileToListStringArrays(String filename) {
 
-        System.out.println("Reading the file " + filename + " ...");
+        // System.out.println("Reading the file " + filename + " ...");
         try {
             // Open BufferedReader and setup variables
             Reader fr = new FileReader(filename);
@@ -33,7 +33,7 @@ public class CsvReader {
 
             // Close BufferedReader and return value
             br.close();
-            System.out.println("Finished reading the file " + filename);
+            // System.out.println("Finished reading the file " + filename);
             return lines;
 
         } catch (FileNotFoundException e) {
