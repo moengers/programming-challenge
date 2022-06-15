@@ -19,18 +19,22 @@ public final class App {
      */
     public static void main(String... args) {
 
-        var dataHandler = new DataHandler("src/main/resources/de/exxcellent/challenge/weather.csv");
+        try {
+            var dataHandler = new DataHandler("src/main/resources/de/exxcellent/challenge/weather.csv");
+            String dayWithSmallestTempSpread = String.valueOf(dataHandler.getSmallestSpread("Day", "MxT", "MnT"));
+            System.out.printf("Day with smallest temperature spread : %s%n",
+                    dayWithSmallestTempSpread);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
-        // Your preparation code …
-
-        String dayWithSmallestTempSpread = String.valueOf(dataHandler.getSmallestSpread());
-        // call …
-        System.out.printf("Day with smallest temperature spread : %s%n",
-                dayWithSmallestTempSpread);
-
-        // String teamWithSmallestGoalSpread = "A good team"; // Your goal analysis
-        // function call …
-        // System.out.printf("Team with smallest goal spread : %s%n",
-        // teamWithSmallestGoalSpread);
+        try {
+            var dataHandler = new DataHandler("src/main/resources/de/exxcellent/challenge/football.csv");
+            String teamWithSmallestGoalSpread = dataHandler.getSmallestSpread("Team", "Goals", "Goals Allowed");
+            System.out.printf("Team with smallest goal spread : %s%n",
+                    teamWithSmallestGoalSpread);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
