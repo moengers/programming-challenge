@@ -1,11 +1,9 @@
 package de.exxcellent.challenge;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class DataHandler {
-    private int DAY_Index = 0;
-    private int MAX_Temp_Index = 1;
-    private int MIN_Temp_Index = 2;
     private List<String[]> data;
     private String[] headers;
 
@@ -22,17 +20,24 @@ public class DataHandler {
         this.data = data;
     }
 
-    public String getSmallestSpread() {
+    public String getSmallestSpread(String index, String firstValue, String secValue) {
         String indexSmallestSpread = null;
         float smallestSpread = Float.MAX_VALUE;
+        int indexColumn = columnFromHeader(index);
+        int firstValueColumn = columnFromHeader(firstValue);
+        int secValueColumn = columnFromHeader(secValue);
         for (String[] day : this.data) {
-            var delta = Float.parseFloat(day[MAX_Temp_Index]) - Float.parseFloat(day[MIN_Temp_Index]);
-            System.out.println(day[DAY_Index] + " " + delta);
+            var delta = Float.parseFloat(day[firstValueColumn]) - Float.parseFloat(day[secValueColumn]);
+            System.out.println(day[indexColumn] + " " + delta);
             if (delta < smallestSpread) {
-                indexSmallestSpread = day[DAY_Index];
+                indexSmallestSpread = day[indexColumn];
                 smallestSpread = delta;
             }
         }
         return indexSmallestSpread;
+    }
+
+    private int columnFromHeader(String header) {
+        return Arrays.asList(headers).indexOf(header);
     }
 }
